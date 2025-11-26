@@ -32,9 +32,9 @@
 
             <section class="statistics">
                 <h2 id="formTitle">
-                        <i class="fas fa-fire-alt"></i>
-                        <span id="StatLabel">現在のステータス</span>
-                    </h2>
+                    <i class="fas fa-fire-alt"></i>
+                    <span id="StatLabel">現在のステータス</span>
+                </h2>
                 <div class="statistics_inner">
                     <div class="stat-card">
                         <div class="stat-label">営業先のトータル数</div>
@@ -78,24 +78,14 @@
                                 <input type="text" id="company" placeholder="例：株式会社○○">
                             </div>
 
-                            <div class="form-row">
-                                <label for="contact">担当者名</label>
-                                <select id="contact">
-                                    <option value="lead">山田太郎</option>
-                                    <option value="hearing">鈴木一郎</option>
-                                    <option value="proposal">山田花子</option>
-                                    <option value="negotiation">田中美咲</option>
-                                </select>
-                            </div>
-
                             <div class="form-row form-row--half">
                                 <div>
-                                    <label for="stage">案件評価</label>
-                                    <select id="stage">
-                                        <option value="lead">S</option>
-                                        <option value="hearing">A</option>
-                                        <option value="proposal">B</option>
-                                        <option value="negotiation">C</option>
+                                    <label for="valuation">案件評価</label>
+                                    <select id="valuation">
+                                        <option value="valu-s">S</option>
+                                        <option value="valu-a">A</option>
+                                        <option value="valu-b">B</option>
+                                        <option value="valu-c">C</option>
                                     </select>
                                 </div>
                                 <div>
@@ -137,52 +127,50 @@
 
                 <!-- 案件一覧 -->
                 <section class="deal-list">
-                    <h2 id="formTitle">
-                        <i class="far fa-file-alt"></i>
-                        <span id="formTitleLabel">案件一覧</span>
-                    </h2>
+                    <div class="deal-list-research">
+                        <h2 id="formTitle">
+                            <i class="far fa-file-alt"></i>
+                            <span id="formTitleLabel">案件一覧</span>
+                        </h2>
+
+                        <!-- フィルター -->
+                        <div class="filter-area">
+                            <div class="filter-area__item">
+                                <label for="filterStage">ステータス</label>
+                                <select id="filterStage">
+                                    <option value="all">すべて</option>
+                                    <option value="lead">リード</option>
+                                    <option value="hearing">ヒアリング</option>
+                                    <option value="proposal">提案中</option>
+                                    <option value="negotiation">交渉中</option>
+                                    <option value="won">受注</option>
+                                    <option value="lost">失注</option>
+                                </select>
+                            </div>
+                            <div class="filter-area__item">
+                                <label for="filterKeyword">キーワード検索</label>
+                                <input type="text" id="filterKeyword" placeholder="案件名・会社名など">
+                            </div>
+                        </div>
+                    </div>
                     <div class="deal-list card">
                         <div class="deal-list__header">
-                            <!-- フィルター -->
-                            <section class="filter-area">
-                                <div class="filter-area__item">
-                                    <label for="filterStage">ステータス</label>
-                                    <select id="filterStage">
-                                        <option value="all">すべて</option>
-                                        <option value="lead">リード</option>
-                                        <option value="hearing">ヒアリング</option>
-                                        <option value="proposal">提案中</option>
-                                        <option value="negotiation">交渉中</option>
-                                        <option value="won">受注</option>
-                                        <option value="lost">失注</option>
-                                    </select>
-                                </div>
-                                <div class="filter-area__item">
-                                    <label for="filterKeyword">キーワード検索</label>
-                                    <input type="text" id="filterKeyword" placeholder="案件名・会社名など">
-                                </div>
-                            </section>
 
-
-
-
+                            <table class="deal-table">
+                                <thead>
+                                    <tr>
+                                        <th>ステータス</th>
+                                        <th>会社名 / 案件名</th>
+                                        <th>案件評価 / 受注確度</th>
+                                        <th>進捗メモ</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dealTableBody">
+                                    <!-- JSで行を追加 -->
+                                </tbody>
+                            </table>
                         </div>
-
-                        <table class="deal-table">
-                            <thead>
-                                <tr>
-                                    <th>案件名 / 会社名</th>
-                                    <th>ステータス</th>
-                                    <th>金額</th>
-                                    <th>次アクション日</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody id="dealTableBody">
-                                <!-- JSで行を追加 -->
-                            </tbody>
-                        </table>
-                    </div>
                 </section>
             </main>
 

@@ -1,4 +1,6 @@
-/* ベース */
+/* =========================
+   ベース
+   ========================= */
 *,
 *::before,
 *::after {
@@ -8,25 +10,34 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP",
+        sans-serif;
     background: #f1f5f9;
     color: #0f172a;
 }
 
 .app {
     margin: 0 auto;
-    padding: 0px 0px 32px;
+    padding: 0 0 32px;
 }
 
-/* ヘッダー */
+/* =========================
+   ヘッダー（固定）
+   ========================= */
 .app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 16px;
+
     color: #fff;
-    padding: 19px 25px 19px 60px;
-    margin-bottom: 16px;
+    padding: 18px 24px 18px 60px;
     background: linear-gradient(135deg, #2e69a9, #000d3a);
     box-shadow:
         0 2px 4px rgba(15, 23, 42, 0.18),
@@ -39,51 +50,42 @@ body {
     font-weight: 800;
 }
 
+/* =========================
+   メインエリア
+   ========================= */
 .main_area {
     margin: 30px 60px;
+    padding-top: 80px;
+    /* 固定ヘッダーぶんの余白 */
 }
 
-/* フィルター */
-.filter-area {
+/* =========================
+   セクション見出し（共通）
+   ========================= */
+.statistics>h2,
+.deal-form>h2,
+.deal-list-research>h2 {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 16px;
+    align-items: center;
+    gap: 6px;
+
+    margin: 0 0 10px;
+    font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #000d3a;
 }
 
-.filter-area__item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 160px;
+.statistics>h2 i,
+.deal-form>h2 i,
+.deal-list-research>h2 i {
+    margin-right: 2px;
 }
 
-.filter-area label {
-    font-size: 12px;
-    color: #475569;
-}
-
-.filter-area select,
-.filter-area input[type="text"] {
-    padding: 6px 8px;
-    border-radius: 999px;
-    border: 1px solid #cbd5e1;
-    font-size: 13px;
-    background: #ffffff;
-}
-
-#formTitle {
-    font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    margin: 0 10px 9px;
-    font-weight: bold;
-    font-color: #000d3a;
-}
-
-#formTitle i{
-    margin-right: 5px;
-}
-
-/* レイアウト */
+/* =========================
+   レイアウト
+   ========================= */
 .main-layout {
     display: flex;
     flex-direction: column;
@@ -93,12 +95,15 @@ body {
 @media (min-width: 880px) {
     .main-layout {
         display: grid;
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr);
         align-items: flex-start;
+        gap: 20px;
     }
 }
 
-/* カード共通 */
+/* =========================
+   カード共通
+   ========================= */
 .card {
     background: #ffffff;
     border-radius: 12px;
@@ -106,12 +111,56 @@ body {
     box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
 }
 
-.card h2 {
-    margin: 0 0 8px;
-    font-size: 15px;
+/* =========================
+   統計カード
+   ========================= */
+.statistics {
+    margin: 0 0 32px;
 }
 
-/* フォーム */
+.statistics_inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.stat-card {
+    flex: 1 1 0;
+    min-width: 180px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 18px 16px;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.stat-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.statistics .stat-value::after {
+    content: "件";
+    font-size: 12px;
+    margin-left: 4px;
+    color: #64748b;
+}
+
+/* =========================
+   フォーム
+   ========================= */
+
+
+
 .deal-form form {
     display: flex;
     flex-direction: column;
@@ -149,6 +198,7 @@ textarea {
     border: 1px solid #cbd5e1;
     border-radius: 8px;
     font-family: inherit;
+    background: #ffffff;
 }
 
 textarea {
@@ -200,20 +250,52 @@ textarea {
     transform: translateY(-0.5px);
 }
 
-/* 案件一覧 */
-.deal-list__header {
+/* =========================
+   案件一覧上部（タイトル＋フィルター）
+   ========================= */
+.deal-list-research {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 6px;
+    gap: 16px;
+    margin-bottom: 8px;
 }
 
-.deal-list__hint {
-    font-size: 11px;
-    color: #64748b;
+/* フィルター */
+.filter-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
-/* テーブル */
+.filter-area__item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 160px;
+}
+
+.filter-area label {
+    font-size: 12px;
+    color: #475569;
+}
+
+.filter-area select,
+.filter-area input[type="text"] {
+    padding: 6px 8px;
+    border-radius: 999px;
+    border: 1px solid #cbd5e1;
+    font-size: 13px;
+    background: #ffffff;
+}
+
+/* =========================
+   案件一覧テーブル
+   ========================= */
+.deal-list.card {
+    margin-top: 4px;
+}
+
 .deal-table {
     width: 100%;
     border-collapse: collapse;
@@ -226,9 +308,9 @@ textarea {
 
 .deal-table th,
 .deal-table td {
-    padding: 6px 8px;
+    padding: 8px 10px;
     border-bottom: 1px solid #e2e8f0;
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 .deal-table th {
@@ -237,31 +319,175 @@ textarea {
     color: #475569;
 }
 
-.deal-table tbody tr:hover {
-    background: #f9fafb;
+.deal-table td {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
-/* 案件名＋会社名 */
-.deal-main {
+/* 行の背景とホバー */
+.deal-table tbody tr {
+    background: #ffffff;
+}
+
+.deal-table tbody tr:nth-child(odd) {
+    background: #fdfdfd;
+}
+
+.deal-table tbody tr:hover {
+    background: #f1f5f9;
+}
+
+/* 列ごとの寄せ方・幅（5列分） */
+.deal-table th:nth-child(1),
+.deal-table td:nth-child(1) {
+  width: 110px;           /* ステータス */
+  text-align: center;
+}
+
+.deal-table th:nth-child(2),
+.deal-table td:nth-child(2) {
+  width: 230px;           /* 会社名 / 案件名（少し広め） */
+}
+
+.deal-table th:nth-child(3),
+.deal-table td:nth-child(3) {
+  width: 150px;           /* 評価 / 確度 */
+}
+
+.deal-table th:nth-child(4),
+.deal-table td:nth-child(4) {
+  width: auto;            /* メモ：できるだけ広くとる */
+}
+
+.deal-table th:nth-child(5),
+.deal-table td:nth-child(5) {
+  width: 80px;            /* 操作 */
+  text-align: center;
+}
+
+
+
+/* 会社名 / 案件名 */
+.deal-company {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.deal-title {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+/* 担当者 */
+.deal-contact {
+    font-size: 13px;
+}
+
+/* 案件評価＋受注確度 */
+.deal-rating {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.deal-amount__prob {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+/* 次アクション */
+.next-action {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    background: #e5f0ff;
+    color: #1e293b;
+}
+
+.next-action--overdue {
+    background: #fee2e2;
+    color: #b91c1c;
+    font-weight: 700;
+}
+
+/* 操作ボタン */
+.deal-actions {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    align-items: center;
+    gap: 4px;
 }
 
-.deal-main__title {
-    font-weight: 600;
-}
-
-.deal-main__meta {
+.btn-sm {
+    border-radius: 999px;
+    padding: 3px 8px;
     font-size: 11px;
-    color: #64748b;
+    border: none;
+    cursor: pointer;
+    background: #e2e8f0;
+    color: #0f172a;
 }
 
-/* ステータスバッジ */
+.btn-sm:hover {
+    background: #cbd5e1;
+}
+
+.btn-sm--danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.btn-sm--danger:hover {
+    background: #fecaca;
+}
+
+/* 評価＋メモを横並びにする */
+.deal-rating-and-memo {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.deal-rating-block {
+    min-width: 90px;
+}
+
+/* インライン表示のメモ */
+.deal-memo-inline {
+    max-width: 260px;
+    /* 必要なら調整 */
+}
+
+.deal-memo-inline .deal-memo-label {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 2px;
+}
+
+.deal-memo-text {
+  font-size: 12px;
+  color: #0f172a;
+  line-height: 1.5;
+  white-space: pre-wrap;  /* 改行保持 */
+}
+
+.deal-memo-text--empty {
+  font-size: 11px;
+  color: #cbd5e1;
+}
+
+
+
+
+/* =========================
+   ステータスバッジ
+   ========================= */
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: 2px 8px;
+    padding: 3px 10px;
     border-radius: 999px;
     font-size: 11px;
     font-weight: 600;
@@ -297,94 +523,21 @@ textarea {
     color: #4b5563;
 }
 
-/* 金額 & 次アクション */
-.deal-amount {
-    font-weight: 600;
-}
+/* =========================
+   レスポンシブ（ざっくり）
+   ========================= */
+@media (max-width: 768px) {
+    .main_area {
+        margin: 20px 12px;
+        padding-top: 72px;
+    }
 
-.deal-amount__prob {
-    font-size: 11px;
-    color: #64748b;
-}
+    .deal-list-research {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-.next-action {
-    font-size: 12px;
-}
-
-.next-action--overdue {
-    color: #b91c1c;
-    font-weight: 600;
-}
-
-/* 操作ボタン */
-.deal-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-}
-
-.btn-sm {
-    border-radius: 999px;
-    padding: 3px 8px;
-    font-size: 11px;
-    border: none;
-    cursor: pointer;
-    background: #e2e8f0;
-    color: #0f172a;
-}
-
-.btn-sm:hover {
-    background: #cbd5e1;
-}
-
-.btn-sm--danger {
-    background: #fee2e2;
-    color: #b91c1c;
-}
-
-.btn-sm--danger:hover {
-    background: #fecaca;
-}
-
-/* 統計カード */
-.statistics{
-    margin: 0 0 38px;
-}
-
-.statistics_inner {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    
-    text-align: center;
-}
-
-.stat-card {
-    flex: 1 1 0;
-    min-width: 180px;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 20px 16px;
-    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.stat-label {
-    font-size: 12px;
-    color: #64748b;
-}
-
-.stat-value {
-    font-size: 30px;
-    font-weight: 700;
-    color: #0f172a;
-}
-
-.statistics .stat-value::after {
-  content: "件";
-  font-size: 12px;    /* ちょっと小さめ */
-  margin-left: 4px;   /* 数字との間隔 */
-  color: #64748b;     /* 好きな色でOK */
+    .statistics_inner {
+        flex-direction: column;
+    }
 }
