@@ -1,23 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/reset.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 
-    <title>Document</title>
+    <title>営業案件管理ツール</title>
 </head>
+
 <body>
-    
 
 
 
-    
+
+    <div class="app">
+
+        <!-- ヘッダー＆サマリー -->
+        <header class="app-header">
+            <div class="app-header__title">
+                <h1>営業管理ボード</h1>
+            </div>
+        </header>
+
+        <div class="main_area">
+
+            <section class="statistics">
+                <h2 id="formTitle">
+                        <i class="fas fa-fire-alt"></i>
+                        <span id="StatLabel">現在のステータス</span>
+                    </h2>
+                <div class="statistics_inner">
+                    <div class="stat-card">
+                        <div class="stat-label">営業先のトータル数</div>
+                        <div class="stat-value" id="statTotalDeals">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">提案中・交渉中の案件数</div>
+                        <div class="stat-value" id="statActiveDeals">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">評価Sの案件数</div>
+                        <div class="stat-value" id="statKeyDeals">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">受注数</div>
+                        <div class="stat-value" id="statWonDeals">0</div>
+                    </div>
+                </div>
+            </section>
+
+            <main class="main-layout">
+
+                <!-- 案件登録フォーム -->
+                <section class="deal-form">
+                    <h2 id="formTitle">
+                        <i class="fas fa-edit"></i>
+                        <span id="formTitleLabel">案件を追加</span>
+                    </h2>
+                    <div class="card">
+                        <form id="dealForm">
+                            <!-- 編集用のhidden -->
+                            <input type="hidden" id="dealId">
+
+                            <div class="form-row">
+                                <label for="title">案件名<span class="required">*</span></label>
+                                <input type="text" id="title" required placeholder="例：〇〇構築支援">
+                            </div>
+
+                            <div class="form-row">
+                                <label for="company">会社名</label>
+                                <input type="text" id="company" placeholder="例：株式会社○○">
+                            </div>
+
+                            <div class="form-row">
+                                <label for="contact">担当者名</label>
+                                <select id="contact">
+                                    <option value="lead">山田太郎</option>
+                                    <option value="hearing">鈴木一郎</option>
+                                    <option value="proposal">山田花子</option>
+                                    <option value="negotiation">田中美咲</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row form-row--half">
+                                <div>
+                                    <label for="stage">案件評価</label>
+                                    <select id="stage">
+                                        <option value="lead">S</option>
+                                        <option value="hearing">A</option>
+                                        <option value="proposal">B</option>
+                                        <option value="negotiation">C</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="probability">受注確度（%）</label>
+                                    <input type="number" id="probability" min="0" max="100" step="5">
+                                </div>
+                            </div>
+
+                            <div class="form-row form-row--half">
+                                <div>
+                                    <label for="stage">ステータス</label>
+                                    <select id="stage">
+                                        <option value="lead">リード</option>
+                                        <option value="hearing">ヒアリング</option>
+                                        <option value="proposal">提案中</option>
+                                        <option value="negotiation">交渉中</option>
+                                        <option value="won">受注</option>
+                                        <option value="lost">失注</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="nextActionDate">次アクション日</label>
+                                    <input type="date" id="nextActionDate">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <label for="note">メモ</label>
+                                <textarea id="note" rows="3" placeholder="例：来週デモ共有。競合1社ありなど"></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary" id="submitBtn">保存する</button>
+                                <button type="button" class="btn-secondary" id="resetBtn">フォームをリセット</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 案件一覧 -->
+                <section class="deal-list">
+                    <h2 id="formTitle">
+                        <i class="far fa-file-alt"></i>
+                        <span id="formTitleLabel">案件一覧</span>
+                    </h2>
+                    <div class="deal-list card">
+                        <div class="deal-list__header">
+                            <!-- フィルター -->
+                            <section class="filter-area">
+                                <div class="filter-area__item">
+                                    <label for="filterStage">ステータス</label>
+                                    <select id="filterStage">
+                                        <option value="all">すべて</option>
+                                        <option value="lead">リード</option>
+                                        <option value="hearing">ヒアリング</option>
+                                        <option value="proposal">提案中</option>
+                                        <option value="negotiation">交渉中</option>
+                                        <option value="won">受注</option>
+                                        <option value="lost">失注</option>
+                                    </select>
+                                </div>
+                                <div class="filter-area__item">
+                                    <label for="filterKeyword">キーワード検索</label>
+                                    <input type="text" id="filterKeyword" placeholder="案件名・会社名など">
+                                </div>
+                            </section>
+
+
+
+
+                        </div>
+
+                        <table class="deal-table">
+                            <thead>
+                                <tr>
+                                    <th>案件名 / 会社名</th>
+                                    <th>ステータス</th>
+                                    <th>金額</th>
+                                    <th>次アクション日</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dealTableBody">
+                                <!-- JSで行を追加 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+
+        </div>
+    </div>
+
+
     <!-- JQueryが先 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- main.jsが後 -->
     <script src="js/main.js"></script>
 </body>
+
 </html>
