@@ -77,12 +77,25 @@ $(function () {
 
     //統計カードの更新部分
     function updateStats(){
+        let statTotalDeals = deals.length;
+        let statActiveDeals = 0;
+        let statKeyDeals = 0;
+        let statWonDeals = 0;
         
+        for (let i = 0; i < deals.length; i++){
+            const d = deals[i];
 
-        const statTotalDeals = deals.length;
-        const statActiveDeals = 
+            if(d.stage === "lead" ||d.stage === "negotiation"){
+                statActiveDeals++;
+            }
+            if(d.valuation === "valu-s"){
+                statKeyDeals++;
+            }
+            if(d.stage === "won"){
+                statWonDeals++;
+            }
+        }
 
-        
         $("#statTotalDeals").text(statTotalDeals);
         $("#statActiveDeals").text(statActiveDeals);
         $("#statKeyDeals").text(statKeyDeals);
