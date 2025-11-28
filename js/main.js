@@ -252,6 +252,7 @@ $(function () {
 
             $tbody.append(rowHtml);
         }
+        updateStats();
     }
 
     // --- フォームの保存 ---　//
