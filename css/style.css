@@ -216,7 +216,7 @@ textarea {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 4px;
+    margin-top: 8px;
 }
 
 .btn-primary,
@@ -249,6 +249,12 @@ textarea {
     background: #cbd5e1;
     transform: translateY(-0.5px);
 }
+
+.deal-form h2#formTitle {
+    margin-top: 10px;
+    margin-bottom: 33px;
+}
+
 
 /* =========================
    案件一覧上部（タイトル＋フィルター）
@@ -340,29 +346,34 @@ textarea {
 /* 列ごとの寄せ方・幅（5列分） */
 .deal-table th:nth-child(1),
 .deal-table td:nth-child(1) {
-  width: 110px;           /* ステータス */
-  text-align: center;
+    width: 110px;
+    /* ステータス */
+    text-align: center;
 }
 
 .deal-table th:nth-child(2),
 .deal-table td:nth-child(2) {
-  width: 230px;           /* 会社名 / 案件名（少し広め） */
+    width: 230px;
+    /* 会社名 / 案件名（少し広め） */
 }
 
 .deal-table th:nth-child(3),
 .deal-table td:nth-child(3) {
-  width: 150px;           /* 評価 / 確度 */
+    width: 150px;
+    /* 評価 / 確度 */
 }
 
 .deal-table th:nth-child(4),
 .deal-table td:nth-child(4) {
-  width: auto;            /* メモ：できるだけ広くとる */
+    width: auto;
+    /* メモ：できるだけ広くとる */
 }
 
 .deal-table th:nth-child(5),
 .deal-table td:nth-child(5) {
-  width: 80px;            /* 操作 */
-  text-align: center;
+    width: 80px;
+    /* 操作 */
+    text-align: center;
 }
 
 
@@ -467,15 +478,16 @@ textarea {
 }
 
 .deal-memo-text {
-  font-size: 12px;
-  color: #0f172a;
-  line-height: 1.5;
-  white-space: pre-wrap;  /* 改行保持 */
+    font-size: 12px;
+    color: #0f172a;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    /* 改行保持 */
 }
 
 .deal-memo-text--empty {
-  font-size: 11px;
-  color: #cbd5e1;
+    font-size: 11px;
+    color: #cbd5e1;
 }
 
 
