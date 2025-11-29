@@ -257,137 +257,128 @@ $(function () {
 
     // --- フォームの保存 ---　//
     $("#dealForm").on("submit", function (e) {
-        e.preventDefault(); // 画面リロードを止める
+        e.preventDefault();
 
-        // 既存IDがあればそれを使う（＝編集）、なければ新規IDを作る
-        const idFromHidden = $("#dealId").val();
-        const id = idFromHidden || createId();
+        const $dealId = $("#dealId").val();
+        const id = $dealId || createId();
 
-        const title = $("#title").val().trim();
-        const company = $("#company").val().trim();
-        const valuation = $("#valuation").val();
-        const probabilityStr = $("#probability").val();
-        const stage = $("#stage").val();
-        const nextActionDate = $("#nextActionDate").val();
-        const note = $("#note").val();
+        const $title = $("#title").val().trim();
+        const $company = $("#company").val().trim();
+        const $valuation = $("#valuation").val();
+        const $probabilityStr = $("#probability").val().trim();
+        const $stage = $("#stage").val();
+        const $note = $("#note").val().trim();
+        const $nextActionDate = $("#nextActionDate").val.trim();
 
-        // 受注確度は 数値 or null にしておく
-        let probability = null;
-        if (probabilityStr !== "") {
-            const num = Number(probabilityStr);
+        //受注確度の数値変換
+        let $probability = null;
+        if ($probabilityStr !== "") {
+            const num = Number($probabilityStr);
             if (!isNaN(num)) {
-                probability = num;
+                $probability = num;
             }
         }
 
-        // 1件分のデータオブジェクト
-        const dealData = {
+        //1件分のデータオブジェクトを作成
+        const dealData ={
             id: id,
-            title: title,
-            company: company,
-            valuation: valuation,
-            probability: probability,
-            stage: stage,
-            nextActionDate: nextActionDate,
-            note: note,
-        };
+            title: $title,
+            company: $company,
+            valuation: $valuation,
+            probability: $probability,
+            stage: $stage,
+            note: $note,
+            nextActionDate: $nextActionDate
+        }
 
-        // 既存データかどうかチェック
+        //既存データかチェック
         let existingIndex = -1;
         for (let i = 0; i < deals.length; i++) {
-            if (deals[i].id === id) {
+            if (deals[i].id === id){
                 existingIndex = i;
                 break;
             }
         }
 
-        if (existingIndex >= 0) {
-            // 上書き（編集）
+        if (existingIndex >= 0){
             deals[existingIndex] = dealData;
-        } else {
-            // 新規追加
+        }else {
             deals.push(dealData);
         }
 
-        // 保存 → 再描画 → フォームリセット
         saveDeals();
         renderDeals();
         resetForm();
+    })
 
-    });
-
-    // =========================
-    // 編集ボタン
-    // =========================
-    $("#dealTableBody").on("click", ".js-edit", function () {
+    // --- 編集ボタン ---　//
+    //IDの取得
+    $("#dealTableBody").on("click", ".js-edit", function(){
         const id = $(this).closest("tr").data("id");
-        if (!id) return;
+        if(!id) return;
 
-        // idが一致するデータを探す
         let deal = null;
-        for (let i = 0; i < deals.length; i++) {
-            if (deals[i].id === id) {
+        for (let i = 0; i < deals.length; i++){
+            if(deals[i].id === id){
                 deal = deals[i];
                 break;
             }
         }
-        if (!deal) return;
+        if(!deal) return;
 
-        // フォームに値をセット
         $("#dealId").val(deal.id);
         $("#title").val(deal.title);
         $("#company").val(deal.company);
         $("#valuation").val(deal.valuation);
-        $("#probability").val(
-            deal.probability === null || deal.probability === undefined
-                ? ""
-                : deal.probability
-        );
+        $("#probability").val()
+
+        if(deal.probability === null || deal.probability === undefined){
+            $("#probability").val("");
+        }else{
+            $("#probability").val(deal.probability);
+        }
+
         $("#stage").val(deal.stage);
         $("#nextActionDate").val(deal.nextActionDate);
         $("#note").val(deal.note);
 
-        // 見出しを「案件を編集」に変更
+        //見出しを「案件を編集」に変更
         $(".deal-form #formTitleLabel").text("案件を編集");
     });
 
-    // =========================
-    // 削除ボタン
-    // =========================
-    $("#dealTableBody").on("click", ".js-delete", function () {
+    // --- 削除ボタン ---　//
+    $("#dealTableBody").on("click", ".js-delete", function(){
         const id = $(this).closest("tr").data("id");
-        if (!id) return;
+        if(!id) return;
 
-        if (!window.confirm("この案件を削除しますか？")) {
-            return;
+        if(!window.confirm("この案件を削除しますか？")){
+            return;  //false（いいえ）の場合は中断
         }
 
+        //true（はい）の場合は削除実行
         const newDeals = [];
-        for (let i = 0; i < deals.length; i++) {
-            if (deals[i].id !== id) {
+        for (let i = 0; i < deals.length; i++){
+            if(deals[i].id !== id){
                 newDeals.push(deals[i]);
             }
         }
+
         deals = newDeals;
 
         saveDeals();
         renderDeals();
-
     });
 
-    // =========================
     // フィルター操作
-    // =========================
     $("#filterStage").on("change", function () {
         renderDeals();
     });
 
-    $("#filterKeyword").on("input", function () {
+    $("#filterKeyword").on("change", function () {
         renderDeals();
     });
 
-    // =========================
     // 初期表示
-    // =========================
     renderDeals();
+
 });
